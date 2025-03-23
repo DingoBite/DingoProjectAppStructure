@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AppStructure.Utils;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core.Model
+namespace DingoProjectAppStructure.Core.Model
 {
     public abstract class AppModelBase { }
 

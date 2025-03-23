@@ -1,6 +1,6 @@
-﻿using ProjectAppStructure.Core.AppRootCore;
+﻿using DingoProjectAppStructure.Core.AppRootCore;
 
-namespace ProjectAppStructure.GenericView.Popups
+namespace DingoProjectAppStructure.GenericView.Popups
 {
     public class ModalWindowPopup : PopupRoot { }
 }

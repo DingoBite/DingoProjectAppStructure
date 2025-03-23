@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using AppStructure;
 using AppStructure.StateMachines;
 
-namespace ProjectAppStructure.Core
+namespace DingoProjectAppStructure.Core
 {
     public class AppStateMachine : GoBackSupportStateMachine<string>
     {

@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using ProjectAppStructure.Core.Model;
-using ProjectAppStructure.Core.ViewModel;
+using DingoProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.ViewModel;
 using UnityEngine;
 
-namespace ProjectAppStructure.SceneRoot
+namespace DingoProjectAppStructure.SceneRoot
 {
     public class ModelsRegistererManager : MonoBehaviour
     {

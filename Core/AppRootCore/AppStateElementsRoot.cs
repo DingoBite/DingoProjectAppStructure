@@ -1,7 +1,7 @@
 ﻿using AppStructure;
-using ProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.Model;
 
-namespace ProjectAppStructure.Core.AppRootCore
+namespace DingoProjectAppStructure.Core.AppRootCore
 {
     public class AppStateElementsRoot : AppMainViewsRoot<string, AppModelRoot> { }
 }

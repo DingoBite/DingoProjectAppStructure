@@ -1,11 +1,11 @@
 ﻿using System;
 using AYellowpaper.SerializedCollections;
+using DingoProjectAppStructure.Core.Model;
 using DingoUnityExtensions.Extensions;
 using DingoUnityExtensions.UnityViewProviders.Core;
-using ProjectAppStructure.Core.Model;
 using UnityEngine;
 
-namespace ProjectAppStructure.GenericView.Popups
+namespace DingoProjectAppStructure.GenericView.Popups
 {
     public class ModalButton : ValueContainer<(Action action, ModalButtonKey key)>
     {

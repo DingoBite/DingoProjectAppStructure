@@ -1,7 +1,7 @@
-﻿using ProjectAppStructure.Core.Config;
-using ProjectAppStructure.Core.GeneralUtils;
+﻿using DingoProjectAppStructure.Core.Config;
+using DingoProjectAppStructure.Core.GeneralUtils;
 
-namespace ProjectAppStructure.Core.Model
+namespace DingoProjectAppStructure.Core.Model
 {
     public class ExternalDependencies
     {

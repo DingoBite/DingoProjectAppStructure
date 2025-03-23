@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
+using DingoProjectAppStructure.SceneRoot;
 using DingoUnityExtensions;
-using ProjectAppStructure.SceneRoot;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core.AppLock
+namespace DingoProjectAppStructure.Core.AppLock
 {
     [Flags]
     public enum AppInputLockConfigure

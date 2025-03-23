@@ -3,7 +3,7 @@ using System.Collections;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace ProjectAppStructure.SceneRoot
+namespace DingoProjectAppStructure.SceneRoot
 {
     public class AppBoostrap : AppStructure.AppBootstrap
     {

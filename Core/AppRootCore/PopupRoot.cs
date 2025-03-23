@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using AppStructure.BaseElements;
+using DingoProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.SceneRoot;
 using DingoUnityExtensions.Extensions;
 using DingoUnityExtensions.UnityViewProviders.Core;
-using ProjectAppStructure.Core.Model;
-using ProjectAppStructure.SceneRoot;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core.AppRootCore
+namespace DingoProjectAppStructure.Core.AppRootCore
 {
     public abstract class PopupRoot : GenericAnimatableAppStateRoot<string, AppModelRoot>
     {

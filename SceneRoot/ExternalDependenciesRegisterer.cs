@@ -1,9 +1,9 @@
 ﻿using System;
-using ProjectAppStructure.Core.Config;
-using ProjectAppStructure.Core.GeneralUtils;
+using DingoProjectAppStructure.Core.Config;
+using DingoProjectAppStructure.Core.GeneralUtils;
 using UnityEngine;
 
-namespace ProjectAppStructure.SceneRoot
+namespace DingoProjectAppStructure.SceneRoot
 {
     public class ExternalDependenciesRegisterer : MonoBehaviour
     {

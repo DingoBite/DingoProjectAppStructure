@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Bind;
+using DingoProjectAppStructure.Core.AppRootCore;
+using DingoProjectAppStructure.Core.Model;
 using DingoUnityExtensions.UnityViewProviders.Core;
-using ProjectAppStructure.Core.AppRootCore;
-using ProjectAppStructure.Core.Model;
 using UnityEngine;
 
-namespace ProjectAppStructure.GenericView.Popups.Elements
+namespace DingoProjectAppStructure.GenericView.Popups.Elements
 {
     public class PopupInfoMessageElement : PopupStateElementBehaviour
     {

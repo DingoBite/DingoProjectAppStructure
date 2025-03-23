@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AppStructure.BaseElements;
+using DingoProjectAppStructure.Core.AppRootCore;
+using DingoProjectAppStructure.Core.Model;
 using NaughtyAttributes;
-using ProjectAppStructure.Core.AppRootCore;
-using ProjectAppStructure.Core.Model;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core
+namespace DingoProjectAppStructure.Core
 {
-    public class StateController : MonoBehaviour, IStateController
+    public class AppStateController : MonoBehaviour, IStateController
     {
         [SerializeField] private AppStateMachine _appCoreStateMachine;
         [SerializeField] private AppStateElementsRoot _appStateElementsRoot;
@@ -21,8 +21,9 @@ namespace ProjectAppStructure.Core
         {
             get
             {
-                var states = _appStateElementsRoot.States;
-                var list = states.ToList();
+                var states = _appStateElementsRoot?.States;
+                var list = states?.ToList();
+                list ??= new List<string>();
                 if (list.Count == 0)
                     list.Add("__EMPTY__");
                 return list;

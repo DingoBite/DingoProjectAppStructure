@@ -1,8 +1,8 @@
 ﻿using AppStructure;
 using AppStructure.BaseElements;
-using ProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.Model;
 
-namespace ProjectAppStructure.Core.AppRootCore
+namespace DingoProjectAppStructure.Core.AppRootCore
 {
     public abstract class AppStateRootBehaviour : ImmediateAppStateRoot<string, AppModelRoot> { }
     public abstract class AnimatableAppStateBehaviour : GenericAnimatableAppStateRoot<string, AppModelRoot> { }

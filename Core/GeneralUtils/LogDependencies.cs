@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectAppStructure.Core.GeneralUtils
+namespace DingoProjectAppStructure.Core.GeneralUtils
 {
     public record LogDependencies(
         Action<Action> UnityLogWrap

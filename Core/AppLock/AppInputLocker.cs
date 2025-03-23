@@ -1,9 +1,8 @@
-﻿using System;
-using AppStructure.InputLocker;
+﻿using AppStructure.InputLocker;
 using DingoUnityExtensions.UnityViewProviders.Core;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core.AppLock
+namespace DingoProjectAppStructure.Core.AppLock
 {
     public class AppInputLocker : AppInputLocker<AppInputLockMessage>
     {

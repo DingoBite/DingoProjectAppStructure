@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using AppStructure.BaseElements;
-using ProjectAppStructure.Core.AppRootCore;
-using ProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.AppRootCore;
+using DingoProjectAppStructure.Core.Model;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core
+namespace DingoProjectAppStructure.Core
 {
     public interface IAppPopupController
     {

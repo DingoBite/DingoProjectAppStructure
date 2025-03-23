@@ -1,7 +1,7 @@
-﻿using ProjectAppStructure.Core.Model;
-using ProjectAppStructure.Core.ViewModel;
+﻿using DingoProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.ViewModel;
 
-namespace ProjectAppStructure.Core.GeneralUtils
+namespace DingoProjectAppStructure.Core.GeneralUtils
 {
     public static class AppModelGetExtensions
     {

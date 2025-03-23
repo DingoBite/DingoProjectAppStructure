@@ -1,9 +1,9 @@
 ﻿using System;
 using AppStructure.Utils;
-using ProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.Model;
 using UnityEngine;
 
-namespace ProjectAppStructure.Core.ViewModel
+namespace DingoProjectAppStructure.Core.ViewModel
 {
     public abstract class AppViewModelBase
     {

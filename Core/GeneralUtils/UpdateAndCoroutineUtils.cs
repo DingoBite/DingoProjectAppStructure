@@ -1,6 +1,6 @@
 ﻿using DingoUnityExtensions;
 
-namespace ProjectAppStructure.Core.GeneralUtils
+namespace DingoProjectAppStructure.Core.GeneralUtils
 {
     public static class UpdateAndCoroutineUtils
     {

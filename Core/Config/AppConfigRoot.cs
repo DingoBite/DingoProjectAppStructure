@@ -1,7 +1,7 @@
 ﻿using System;
 using AppStructure.Utils;
 
-namespace ProjectAppStructure.Core.Config
+namespace DingoProjectAppStructure.Core.Config
 {
     [Serializable]
     public abstract class ConfigBase

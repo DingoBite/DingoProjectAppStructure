@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Bind;
 
-namespace ProjectAppStructure.Core.Model
+namespace DingoProjectAppStructure.Core.Model
 {
     public enum ButtonMood
     {

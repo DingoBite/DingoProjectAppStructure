@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppStructure;
@@ -8,7 +7,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ProjectAppStructure.Core.AppRootCore
+namespace DingoProjectAppStructure.Core.AppRootCore
 {
     public class GenericAnimatableAppStateRoot<TState, TAppModel> : AppStateRoot<TState, TAppModel>
     {

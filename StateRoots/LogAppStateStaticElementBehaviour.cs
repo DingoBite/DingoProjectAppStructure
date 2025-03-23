@@ -1,8 +1,8 @@
 ﻿using AppStructure;
-using ProjectAppStructure.Core.AppRootCore;
+using DingoProjectAppStructure.Core.AppRootCore;
 using UnityEngine;
 
-namespace ProjectAppStructure.StateRoots
+namespace DingoProjectAppStructure.StateRoots
 {
     public class LogAppStateStaticElementBehaviour : AppStateStaticElementBehaviour
     {

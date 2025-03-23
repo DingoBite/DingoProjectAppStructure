@@ -1,7 +1,7 @@
 ﻿using System;
 using DingoUnityExtensions;
 
-namespace ProjectAppStructure.Core.GeneralUtils
+namespace DingoProjectAppStructure.Core.GeneralUtils
 {
     public record RuntimeDependencies(
         RuntimeUpdateConnector RuntimeUpdateConnector,

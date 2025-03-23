@@ -1,6 +1,6 @@
 ﻿using DingoUnityExtensions.Pools;
 
-namespace ProjectAppStructure.GenericView.Popups
+namespace DingoProjectAppStructure.GenericView.Popups
 {
     public class ModalButtonPool : PoolBehaviour<ModalButton>{}
 }

@@ -1,6 +1,6 @@
 ﻿using AppStructure.StateMachines;
 
-namespace ProjectAppStructure.Core
+namespace DingoProjectAppStructure.Core
 {
     public class AppLockStateMachine : OpenCloseStateMachine<string>
     {
