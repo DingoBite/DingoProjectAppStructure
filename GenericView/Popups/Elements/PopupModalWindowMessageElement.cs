@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Bind;
 using DingoProjectAppStructure.Core.AppRootCore;
 using DingoProjectAppStructure.Core.Model;
-using DingoUnityExtensions.Pools;
+using DingoUnityExtensions.Pools.Core;
 using DingoUnityExtensions.UnityViewProviders.Core;
 using UnityEngine;
 
