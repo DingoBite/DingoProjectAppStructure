@@ -1,17 +1,15 @@
-﻿using DingoProjectAppStructure.Core.Config;
+﻿using AppStructure.Utils;
 using DingoProjectAppStructure.Core.GeneralUtils;
 
 namespace DingoProjectAppStructure.Core.Model
 {
-    public class ExternalDependencies
+    public class ExternalDependencies : RootByGenericTypes<object>
     {
-        public readonly AppConfigRoot AppConfigRoot;
         public readonly RuntimeDependencies RuntimeDependencies;
         public readonly LogDependencies LogDependencies;
         
-        public ExternalDependencies(AppConfigRoot appConfigRoot, RuntimeDependencies runtimeDependencies, LogDependencies logDependencies)
+        public ExternalDependencies(RuntimeDependencies runtimeDependencies, LogDependencies logDependencies)
         {
-            AppConfigRoot = appConfigRoot;
             RuntimeDependencies = runtimeDependencies;
             LogDependencies = logDependencies;
         }

@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace DingoProjectAppStructure.SceneRoot
 {
-    public class ModelsRegistererManager : MonoBehaviour
+    public class ModelsRegistererManagerBase : MonoBehaviour
     {
         public async UniTask RegisterModelsAsync(AppModelRoot appModelRoot)
         {
-            appModelRoot.RegisterModel(new AppPopupMessageModel());
+            appModelRoot.Register(new AppPopupMessageModel());
             await AddictiveRegisterModelsAsync(appModelRoot);
             await RegisterViewModelAsync(appModelRoot);
         }
@@ -17,7 +17,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public async UniTask RegisterViewModelAsync(AppModelRoot appModelRoot)
         {
             var appViewModelRoot = new AppViewModelRoot();
-            appModelRoot.RegisterModel(new AppViewModelRootContainer(appViewModelRoot));
+            appModelRoot.Register(new AppViewModelRootContainer(appViewModelRoot));
             await AddictiveRegisterViewModelsAsync(appViewModelRoot);
         }
 

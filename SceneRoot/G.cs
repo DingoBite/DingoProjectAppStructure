@@ -15,8 +15,8 @@ namespace DingoProjectAppStructure.SceneRoot
         [SerializeField] private AppInputLocker _appInputLocker;
         [SerializeField] private AppStateController _appStateController;
         [SerializeField] private AppPopupStateController _appPopupStateController;
-        [SerializeField] private ExternalDependenciesRegisterer _externalDependenciesRegisterer;
-        [SerializeField] private ModelsRegistererManager _modelsRegistererManager;
+        [SerializeField] private ExternalDependenciesRegistererBase _externalDependenciesRegisterer;
+        [SerializeField] private ModelsRegistererManagerBase _modelsRegistererManager;
 
         public static IStateController State => Instance._appStateController;
         public static IAppPopupController Popup => Instance._appPopupStateController;
@@ -38,10 +38,14 @@ namespace DingoProjectAppStructure.SceneRoot
         {
             Debug.Log(nameof(InitializeControllerAsync));
             await _appStateController.GoToBootstrap();
-            
-            _appModel = new AppModelRoot(_externalDependenciesRegisterer.CollectDependencies());
+
+            var externalDependencies = _externalDependenciesRegisterer.CreateExternalDependencies();
+            await _externalDependenciesRegisterer.RegisterConfigsAsync(externalDependencies);
+            await _externalDependenciesRegisterer.RegisterExternalDependenciesAsync(externalDependencies);
+            _appModel = new AppModelRoot(externalDependencies);
             await _modelsRegistererManager.RegisterModelsAsync(_appModel);
             await _appModel.PostInitializeAsync();
+            _externalDependenciesRegisterer.BindToModel(_appModel);
             
             var initializeResult = await _appStateController.AppViewRoot.InitializeAsync().AsUniTask();
             initializeResult |= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();

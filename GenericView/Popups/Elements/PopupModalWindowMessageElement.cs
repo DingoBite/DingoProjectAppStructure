@@ -19,7 +19,7 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
 
         public override Task BindAsync(AppModelRoot appModel)
         {
-            _popupMessageModel = appModel.Model<AppPopupMessageModel>();
+            _popupMessageModel = appModel.Get<AppPopupMessageModel>();
             return base.BindAsync(appModel);
         }
 
