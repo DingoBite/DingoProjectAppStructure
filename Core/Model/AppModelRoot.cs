@@ -13,11 +13,6 @@ namespace DingoProjectAppStructure.Core.Model
         {
             return Task.CompletedTask;
         }
-
-        public virtual Task AfterAppStaticDataInitializeAsync()
-        {
-            return Task.CompletedTask;
-        }
     }
 
     public class AppModelRoot : RootByGenericTypes<AppModelBase>

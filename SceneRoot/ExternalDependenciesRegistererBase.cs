@@ -26,7 +26,8 @@ namespace DingoProjectAppStructure.SceneRoot
             await AddictiveRegisterExternalDependenciesAsync(externalDependencies);
         }
 
-        public virtual void BindToModel(AppModelRoot appModelRoot) {}
+        public virtual UniTask BindToModelAsync(AppModelRoot appModelRoot) => UniTask.CompletedTask;
+        public virtual UniTask PostInitializeAsync() => UniTask.CompletedTask;
         
         protected virtual UniTask AddictiveRegisterConfigsAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
         protected virtual UniTask AddictiveRegisterExternalDependenciesAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;

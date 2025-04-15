@@ -45,7 +45,7 @@ namespace DingoProjectAppStructure.SceneRoot
             _appModel = new AppModelRoot(externalDependencies);
             await _modelsRegistererManager.RegisterModelsAsync(_appModel);
             await _appModel.PostInitializeAsync();
-            _externalDependenciesRegisterer.BindToModel(_appModel);
+            _externalDependenciesRegisterer.BindToModelAsync(_appModel);
             
             var initializeResult = await _appStateController.AppViewRoot.InitializeAsync().AsUniTask();
             initializeResult |= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
@@ -65,7 +65,8 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(FinalizeAsync));
             var result = await _appStateController.AppViewRoot.PostInitializeAsync().AsUniTask();
             result |= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
- 
+            _externalDependenciesRegisterer.PostInitializeAsync();
+            
             callback?.Invoke(result);
             await _appStateController.GoToStart();
         }
