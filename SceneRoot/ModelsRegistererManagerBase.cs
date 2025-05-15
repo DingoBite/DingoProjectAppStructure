@@ -18,10 +18,10 @@ namespace DingoProjectAppStructure.SceneRoot
         {
             var appViewModelRoot = new AppViewModelRoot();
             appModelRoot.Register(new AppViewModelRootContainer(appViewModelRoot));
-            await AddictiveRegisterViewModelsAsync(appViewModelRoot);
+            await AddictiveRegisterViewModelsAsync(appModelRoot, appViewModelRoot);
         }
 
         protected virtual UniTask AddictiveRegisterModelsAsync(AppModelRoot appModelRoot) => UniTask.CompletedTask;
-        protected virtual UniTask AddictiveRegisterViewModelsAsync(AppViewModelRoot appViewModelRoot) => UniTask.CompletedTask;
+        protected virtual UniTask AddictiveRegisterViewModelsAsync(AppModelRoot appModelRoot, AppViewModelRoot appViewModelRoot) => UniTask.CompletedTask;
     }
 }

@@ -6,10 +6,10 @@ namespace DingoProjectAppStructure.StateRoots
 {
     public class LogAppStateStaticElementBehaviour : AppStateStaticElementBehaviour
     {
-        public override void Transfer(TransferInfo<string> transferInfo)
+        public override void Enable(TransferInfo<string> transferInfo)
         {
             Debug.Log($"Transfer {transferInfo}", this);
-            base.Transfer(transferInfo);
+            base.Enable(transferInfo);
         }
     }
 }

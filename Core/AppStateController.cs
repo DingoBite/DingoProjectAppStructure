@@ -15,6 +15,7 @@ namespace DingoProjectAppStructure.Core
         [SerializeField] private AppStateElementsRoot _appStateElementsRoot;
 
         [SerializeField, Dropdown(nameof(States))] private string _bootstrapState;
+        [SerializeField, Dropdown(nameof(States))] private string _loadingState;
         [SerializeField, Dropdown(nameof(States))] private string _startState;
         
         public List<string> States
@@ -35,6 +36,12 @@ namespace DingoProjectAppStructure.Core
         public async Task GoToBootstrap()
         {
             var t = _appCoreStateMachine.GoToState(_bootstrapState);
+            await _appStateElementsRoot.ApplyTransferAsync(t);
+        }
+
+        public async Task GoToLoading()
+        {
+            var t = _appCoreStateMachine.GoToState(_loadingState);
             await _appStateElementsRoot.ApplyTransferAsync(t);
         }
 
