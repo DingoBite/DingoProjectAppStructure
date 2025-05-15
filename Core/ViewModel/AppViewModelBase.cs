@@ -8,9 +8,11 @@ namespace DingoProjectAppStructure.Core.ViewModel
     public abstract class AppViewModelBase
     {
         protected readonly AppModelRoot AppModelRoot;
+        protected readonly AppViewModelRoot AppViewModelRoot;
 
-        public AppViewModelBase(AppModelRoot appModelRoot)
+        public AppViewModelBase(AppViewModelRoot appViewModelRoot, AppModelRoot appModelRoot)
         {
+            AppViewModelRoot = appViewModelRoot;
             AppModelRoot = appModelRoot;
         }
 
