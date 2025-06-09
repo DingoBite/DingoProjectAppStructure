@@ -11,7 +11,7 @@ namespace DingoProjectAppStructure.SceneRoot
     {
         public virtual ExternalDependencies CreateExternalDependencies()
         {
-            return new ExternalDependencies(UpdateAndCoroutineUtils.MakeRuntimeDependencies(), new LogDependencies(UnityLogInserted));
+            return new ExternalDependencies(UpdateAndCoroutineUtils.MakeRuntimeDependencies(), new LogDependencies(LogDependenciesUtils.UnityLogInserted));
         }
 
         public async UniTask RegisterConfigsAsync(ExternalDependencies externalDependencies)
@@ -31,17 +31,5 @@ namespace DingoProjectAppStructure.SceneRoot
         
         protected virtual UniTask AddictiveRegisterConfigsAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
         protected virtual UniTask AddictiveRegisterExternalDependenciesAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
-        
-        private void UnityLogInserted(Action logAction)
-        {
-            try
-            {
-                logAction();
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning(e);
-            }
-        }
     }
 }
