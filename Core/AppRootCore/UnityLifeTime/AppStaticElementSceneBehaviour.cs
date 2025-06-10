@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Threading.Tasks;
-using AppStructure;
 using Cysharp.Threading.Tasks;
 using DingoProjectAppStructure.Core.GeneralUtils;
 using DingoProjectAppStructure.Core.Model;
-using DingoUnityExtensions;
 
 namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
 {
-    public abstract class AppStateElementRootSceneBehaviour : AppStateElementBehaviour
+    public abstract class AppStaticElementSceneBehaviour : AppStaticElementBehaviour
     {
         private async Task<AppModelRoot> ModelRootFactoryAsync()
         {
@@ -33,11 +31,5 @@ namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
             yield return BindAsync(task.Result).AsUniTask().ToCoroutine();
             yield return PostInitializeAsync().AsUniTask().ToCoroutine();
         }
-
-        private void OnEnable() => CoroutineParent.StartCoroutineWithCanceling((this, nameof(AppStateRootSceneBehaviour)), EnableCoroutine);
-        private void OnDisable() => CoroutineParent.StartCoroutineWithCanceling((this, nameof(AppStateRootSceneBehaviour)), DisableCoroutine);
-
-        private IEnumerator EnableCoroutine() => EnableElementAsync(TransferInfo<string>.None).AsUniTask().ToCoroutine();
-        private IEnumerator DisableCoroutine() => DisableElementAsync(TransferInfo<string>.None).AsUniTask().ToCoroutine();
     }
 }

@@ -7,7 +7,7 @@ using DingoProjectAppStructure.Core.Model;
 
 namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
 {
-    public abstract class AppStateStaticElementRootSceneBehaviour : AppStateStaticElementBehaviour
+    public abstract class AppStateStaticElementSceneBehaviour : AppStateStaticElementBehaviour
     {
         private async Task<AppModelRoot> ModelRootFactoryAsync()
         {
