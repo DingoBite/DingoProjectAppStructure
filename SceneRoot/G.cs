@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace DingoProjectAppStructure.SceneRoot
 {
-    public class G : SingletonProtectedBehaviour<G>
+    public class G : ProtectedSingletonBehaviour<G>
     {
         [SerializeField] private AppInputLocker _appInputLocker;
         [SerializeField] private AppStateController _appStateController;
