@@ -18,7 +18,7 @@ namespace DingoProjectAppStructure.SceneRoot
         {
             var configRoot = new AppConfigRoot();
             externalDependencies.Register(configRoot);
-            await AddictiveRegisterConfigsAsync(externalDependencies);
+            await AddictiveRegisterConfigsAsync(configRoot);
         }
 
         public async UniTask RegisterExternalDependenciesAsync(ExternalDependencies externalDependencies)
@@ -29,7 +29,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public virtual UniTask BindToModelAsync(AppModelRoot appModelRoot) => UniTask.CompletedTask;
         public virtual UniTask PostInitializeAsync() => UniTask.CompletedTask;
         
-        protected virtual UniTask AddictiveRegisterConfigsAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
+        protected virtual UniTask AddictiveRegisterConfigsAsync(AppConfigRoot appConfigRoot) => UniTask.CompletedTask;
         protected virtual UniTask AddictiveRegisterExternalDependenciesAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
     }
 }
