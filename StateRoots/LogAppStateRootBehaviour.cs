@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using AppStructure;
 using DingoProjectAppStructure.Core.AppRootCore;
+using DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime;
 using UnityEngine;
 
 namespace DingoProjectAppStructure.StateRoots
 {
-    public class LogAppStateRootBehaviour : AppStateRootBehaviour
+    public class LogAppStateRootBehaviour : AnimatableAppStateBehaviour
     {
         public override Task EnableOnTransferAsync(TransferInfo<string> transferInfo)
         {
