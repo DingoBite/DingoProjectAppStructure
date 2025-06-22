@@ -66,7 +66,7 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(FinalizeAsync));
             var result = await _appStateController.AppViewRoot.PostInitializeAsync().AsUniTask();
             result |= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
-            _externalDependenciesRegisterer.PostInitializeAsync();
+            await _externalDependenciesRegisterer.PostInitializeAsync();
             
             callback?.Invoke(result);
             await _appStateController.GoToStart();
