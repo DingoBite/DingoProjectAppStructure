@@ -8,5 +8,6 @@ namespace DingoProjectAppStructure.Core.GeneralUtils
     {
         public static AppViewModelRoot ViewModel(this AppModelRoot appModelRoot) => appModelRoot.Get<AppViewModelRootContainer>().Root;
         public static AppConfigRoot Configs(this AppModelRoot appModelRoot) => appModelRoot.ExternalDependencies.Get<AppConfigRoot>();
+        public static AppConfigRoot Configs(this ExternalDependencies externalDependencies) => externalDependencies.Get<AppConfigRoot>();
     }
 }

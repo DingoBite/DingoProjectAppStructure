@@ -15,6 +15,7 @@ namespace DingoProjectAppStructure.SceneRoot
         [SerializeField] private AppInputLocker _appInputLocker;
         [SerializeField] private AppStateController _appStateController;
         [SerializeField] private AppPopupStateController _appPopupStateController;
+        [SerializeField] private ConfigRegistererBase _configRegistererBase;
         [SerializeField] private ExternalDependenciesRegistererBase _externalDependenciesRegisterer;
         [SerializeField] private ModelsRegistererManagerBase _modelsRegistererManager;
 
@@ -39,7 +40,7 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(InitializeControllerAsync));
             await _appStateController.GoToBootstrap();
 
-            var externalDependencies = _externalDependenciesRegisterer.CreateExternalDependencies();
+            var externalDependencies = ExternalDependenciesRegistererBase.ConstructExternalDependencies();
             await _externalDependenciesRegisterer.RegisterConfigsAsync(externalDependencies);
             await _externalDependenciesRegisterer.RegisterExternalDependenciesAsync(externalDependencies);
             _appModel = new AppModelRoot(externalDependencies);
