@@ -18,6 +18,8 @@ namespace DingoProjectAppStructure.Core.Config
     {
         [SerializeField] private T _config;
 
+        protected T Config => _config;
+        
         public override void RegisterTo(AppConfigRoot appConfigRoot) => appConfigRoot.Register(_config);
         
         public override Task RegisterToAsync(AppConfigRoot appConfigRoot)
