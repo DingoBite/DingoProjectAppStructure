@@ -21,7 +21,7 @@ namespace DingoProjectAppStructure.SceneRoot
         }
     }
     
-    public class ExternalDependenciesRegistererBase : MonoBehaviour
+    public class ExternalDependenciesRegistererBase : MonoBehaviour, IDisposable
     {
         [SerializeField] private ConfigRegistererBase _configRegisterer;
         
@@ -43,5 +43,6 @@ namespace DingoProjectAppStructure.SceneRoot
         protected virtual UniTask AddictiveRegisterExternalDependenciesAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
         
         public static ExternalDependencies ConstructExternalDependencies() => new(UpdateAndCoroutineUtils.MakeRuntimeDependencies(), new LogDependencies(LogDependenciesUtils.UnityLogInserted));
+        public virtual void Dispose() { }
     }
 }

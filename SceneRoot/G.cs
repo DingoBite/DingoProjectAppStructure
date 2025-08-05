@@ -72,5 +72,10 @@ namespace DingoProjectAppStructure.SceneRoot
             callback?.Invoke(result);
             await _appStateController.GoToStart();
         }
+
+        private void OnDestroy()
+        {
+            _externalDependenciesRegisterer.Dispose();
+        }
     }
 }
