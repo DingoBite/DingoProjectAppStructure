@@ -15,7 +15,6 @@ namespace DingoProjectAppStructure.SceneRoot
         [SerializeField] private AppInputLocker _appInputLocker;
         [SerializeField] private AppStateController _appStateController;
         [SerializeField] private AppPopupStateController _appPopupStateController;
-        [SerializeField] private ConfigRegistererBase _configRegistererBase;
         [SerializeField] private ExternalDependenciesRegistererBase _externalDependenciesRegisterer;
         [SerializeField] private ModelsRegistererManagerBase _modelsRegistererManager;
 
