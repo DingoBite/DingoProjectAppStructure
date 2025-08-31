@@ -23,8 +23,13 @@ namespace DingoProjectAppStructure.SceneRoot
         public static IAppInputLocker<AppInputLockMessage> Lock => Instance._appInputLocker;
         public static AppModelRoot M => Instance._appModel;
         public static List<string> States => Instance._appStateController.States;
-        
+
         private AppModelRoot _appModel;
+
+        public void PrepareOnAwake()
+        {
+            _externalDependenciesRegisterer.AwakePrepare();
+        }
 
         public void PrepareController()
         {
@@ -33,7 +38,7 @@ namespace DingoProjectAppStructure.SceneRoot
             _appStateController.AppViewRoot.PreInitialize();
             _appPopupStateController.AppPopupViewRoot.PreInitialize();
         }
-        
+
         public async UniTask InitializeControllerAsync(Action<bool> callback)
         {
             Debug.Log(nameof(InitializeControllerAsync));

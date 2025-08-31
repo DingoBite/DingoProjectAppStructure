@@ -9,6 +9,8 @@ namespace DingoProjectAppStructure.SceneRoot
     {
         [SerializeField] private G _g;
 
+        protected override void AwakePrepare() => _g.PrepareOnAwake();
+
         protected override IEnumerator PrepareBootstrapProcess(Action<bool> callback)
         {
             _g.PrepareController();

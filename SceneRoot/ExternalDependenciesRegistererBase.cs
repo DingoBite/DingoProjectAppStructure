@@ -41,8 +41,10 @@ namespace DingoProjectAppStructure.SceneRoot
         public virtual UniTask PostInitializeAsync() => UniTask.CompletedTask;
         
         protected virtual UniTask AddictiveRegisterExternalDependenciesAsync(ExternalDependencies externalDependencies) => UniTask.CompletedTask;
+        protected virtual void AwakePreInitialize() {}
         
         public static ExternalDependencies ConstructExternalDependencies() => new(UpdateAndCoroutineUtils.MakeRuntimeDependencies(), new LogDependencies(LogDependenciesUtils.UnityLogInserted));
         public virtual void Dispose() { }
+        public void AwakePrepare() => AwakePreInitialize();
     }
 }
