@@ -20,13 +20,13 @@ namespace DingoProjectAppStructure.Core.AppRootCore
         [Foldout("Events")]
         [SerializeField] private UnityEvent _fullDisable;
         
-        [SerializeField] private List<AnimatableBehaviour> _animatableBehaviours;
+        [SerializeField] private List<RevealBehaviour> _animatableBehaviours;
             
         private Canvas _canvas;
 
         protected Canvas Canvas => _canvas ??= GetComponent<Canvas>();
 
-        private List<AnimatableBehaviour> AnimatableBehaviours => _animatableBehaviours;
+        private List<RevealBehaviour> AnimatableBehaviours => _animatableBehaviours;
 
         protected override void StartEnable(TransferInfo<TState> transferInfo)
         {
@@ -75,7 +75,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore
 
         private void DisableAllHandle(TransferInfo<TState> transferInfo)
         {
-            if (AnimatableBehaviours.Any(animatableBehaviour => !animatableBehaviour.IsFullyDisabled))
+            if (AnimatableBehaviours.Any(animatableBehaviour => animatableBehaviour.State != AnimateState.Disabled))
                 return;
 
             DisableCompletely(transferInfo);
@@ -83,7 +83,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore
 
         private void EnableFirstHandle()
         {
-            if (AnimatableBehaviours.Any(animatableBehaviour => !animatableBehaviour.IsFullyEnabled))
+            if (AnimatableBehaviours.Any(animatableBehaviour => animatableBehaviour.State != AnimateState.Enabled))
                 return;
             EnableCompletely();
         }
