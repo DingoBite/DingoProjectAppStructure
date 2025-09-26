@@ -11,6 +11,8 @@ namespace DingoProjectAppStructure.SceneRoot
     public class ConfigRegistererBase : MonoBehaviour
     {
         [SerializeField] private List<ScriptableConfigBase> _configs;
+
+        protected IReadOnlyList<ScriptableConfigBase> Configs => _configs;
         
         public virtual async UniTask RegisterConfigsAsync(AppConfigRoot appConfigRoot)
         {
@@ -19,6 +21,10 @@ namespace DingoProjectAppStructure.SceneRoot
                 await config.RegisterToAsync(appConfigRoot);
             }
         }
+
+        public void AwakePrepare() => AwakePreInitialize();
+        
+        protected virtual void AwakePreInitialize() {}
     }
     
     public class ExternalDependenciesRegistererBase : MonoBehaviour, IDisposable
@@ -45,6 +51,10 @@ namespace DingoProjectAppStructure.SceneRoot
         
         public static ExternalDependencies ConstructExternalDependencies() => new(UpdateAndCoroutineUtils.MakeRuntimeDependencies(), new LogDependencies(LogDependenciesUtils.UnityLogInserted));
         public virtual void Dispose() { }
-        public void AwakePrepare() => AwakePreInitialize();
+        public void AwakePrepare()
+        {
+            _configRegisterer.AwakePrepare();
+            AwakePreInitialize();
+        }
     }
 }
