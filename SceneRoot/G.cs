@@ -18,11 +18,11 @@ namespace DingoProjectAppStructure.SceneRoot
         [SerializeField] private ExternalDependenciesRegistererBase _externalDependenciesRegisterer;
         [SerializeField] private ModelsRegistererManagerBase _modelsRegistererManager;
 
-        public static IStateController State => Instance._appStateController;
-        public static IAppPopupController Popup => Instance._appPopupStateController;
-        public static IAppInputLocker<AppInputLockMessage> Lock => Instance._appInputLocker;
-        public static AppModelRoot M => Instance._appModel;
-        public static List<string> States => Instance._appStateController.States;
+        public static IStateController State => GetNoCheck()?._appStateController;
+        public static IAppPopupController Popup => GetNoCheck()?._appPopupStateController;
+        public static IAppInputLocker<AppInputLockMessage> Lock => GetNoCheck()?._appInputLocker;
+        public static AppModelRoot M => GetNoCheck()?._appModel;
+        public static List<string> States => GetNoCheck()?._appStateController.States;
 
         private AppModelRoot _appModel;
 
