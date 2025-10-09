@@ -23,6 +23,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public static IAppInputLocker<AppInputLockMessage> Lock => GetNoCheck()?._appInputLocker;
         public static AppModelRoot M => GetNoCheck()?._appModel;
         public static List<string> States => GetNoCheck()?._appStateController.States;
+        public static List<string> PopupStates => GetNoCheck()?._appPopupStateController.States;
 
         private AppModelRoot _appModel;
 

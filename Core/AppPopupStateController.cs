@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AppStructure.BaseElements;
 using DingoProjectAppStructure.Core.AppRootCore;
@@ -19,6 +21,19 @@ namespace DingoProjectAppStructure.Core
 
         public IAppStructurePart<AppModelRoot> AppPopupViewRoot => _appPopupViewRoot;
             
+        public List<string> States
+        {
+            get
+            {
+                var states = _appPopupViewRoot?.States;
+                var list = states?.ToList();
+                list ??= new List<string>();
+                if (list.Count == 0)
+                    list.Add("__EMPTY__");
+                return list;
+            }
+        }
+        
         public async Task OpenAsync(string popup)
         {
             var transferInfo = _appPopupStateMachine.OpenState(popup);

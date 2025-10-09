@@ -25,7 +25,9 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
 
         private void ModelWindowMessageChange(ModalWindowMessage message)
         {
+            _title.SetActiveContainer(string.IsNullOrWhiteSpace(message.Title));
             _title.UpdateValueWithoutNotify(message.Title);
+            _message.SetActiveContainer(string.IsNullOrWhiteSpace(message.Message));
             _message.UpdateValueWithoutNotify(message.Message);
             _buttonsPool.Clear();
             if (message.AddictiveActions == null)
