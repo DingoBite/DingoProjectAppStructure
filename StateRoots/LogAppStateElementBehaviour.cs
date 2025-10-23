@@ -7,15 +7,20 @@ namespace DingoProjectAppStructure.StateRoots
 {
     public class LogAppStateElementBehaviour : AppStateElementBehaviour
     {
+        [SerializeField] private bool _onEnableLogging = true;
+        [SerializeField] private bool _onDisableLogging = true;
+        
         public override Task EnableElementAsync(TransferInfo<string> transferInfo)
         {
-            Debug.Log($"Enable {transferInfo}: {name}", this);
+            if (_onEnableLogging)
+                Debug.Log($"Enable {transferInfo}: {name}", this);
             return base.EnableElementAsync(transferInfo);
         }
 
         public override Task DisableElementAsync(TransferInfo<string> transferInfo)
         {
-            Debug.Log($"Disable {transferInfo}: {name}", this);
+            if (_onDisableLogging)
+                Debug.Log($"Disable {transferInfo}: {name}", this);
             return base.DisableElementAsync(transferInfo);
         }
     }
