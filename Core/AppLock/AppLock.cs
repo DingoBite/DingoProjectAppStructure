@@ -17,10 +17,12 @@ namespace DingoProjectAppStructure.Core.AppLock
     public struct AppInputLockMessage
     {
         public readonly AppInputLockConfigure ConfigureFlags;
+        public readonly object Params;
         
-        public AppInputLockMessage(AppInputLockConfigure configureFlags)
+        public AppInputLockMessage(AppInputLockConfigure configureFlags, object @params = null)
         {
             ConfigureFlags = configureFlags;
+            Params = @params;
         }
     }
     
@@ -54,6 +56,24 @@ namespace DingoProjectAppStructure.Core.AppLock
             try
             {
                 await awaitFunc();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            G.Lock.Disable(lockFlag);
+            callback?.Invoke();
+        }
+        
+        public static async Task AppAsyncLockAction(Task task, Action callback = null, ushort lockFlag = 0, AppInputLockMessage lockMessage = default)
+        {
+            if (lockMessage.ConfigureFlags == AppInputLockConfigure.None)
+                lockMessage = new AppInputLockMessage(AppInputLockConfigure.ShowPreloader);
+            G.Lock.Enable(lockMessage, lockFlag);
+            try
+            {
+                await task;
             }
             catch (Exception e)
             {

@@ -19,11 +19,13 @@ namespace DingoProjectAppStructure.Core.Model
         public readonly string Title;
         public readonly string Message;
         public readonly IReadOnlyDictionary<ModalButtonKey, Action> AddictiveActions;
+        public readonly bool CanBeIgnored;
         
-        public ModalWindowMessage(string title, string message, IReadOnlyDictionary<ModalButtonKey, Action> addictiveActions = null)
+        public ModalWindowMessage(string title, string message, bool canBeIgnored = true, IReadOnlyDictionary<ModalButtonKey, Action> addictiveActions = null)
         {
             Title = title;
             Message = message;
+            CanBeIgnored = canBeIgnored;
             AddictiveActions = addictiveActions;
         }
     }

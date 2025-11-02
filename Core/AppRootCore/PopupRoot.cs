@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AppStructure.BaseElements;
+using System.Threading.Tasks;
 using DingoProjectAppStructure.Core.Model;
 using DingoProjectAppStructure.SceneRoot;
 using DingoUnityExtensions.Extensions;
@@ -8,9 +8,17 @@ using UnityEngine;
 
 namespace DingoProjectAppStructure.Core.AppRootCore
 {
-    public abstract class PopupRoot : GenericAnimatableAppStateRoot<string, AppModelRoot>
+    public class PopupRoot : GenericAnimatableAppStateRoot<string, AppModelRoot>
     {
         [SerializeField] private List<EventContainer> _closeButtons;
+        
+        private AppPopupMessageModel _popupMessageModel;
+
+        public override Task<bool> BindAsync(AppModelRoot appModel)
+        {
+            _popupMessageModel = appModel.Get<AppPopupMessageModel>();
+            return base.BindAsync(appModel);
+        }
 
         public override void PreInitialize()
         {
@@ -18,10 +26,10 @@ namespace DingoProjectAppStructure.Core.AppRootCore
             SetDefaultValues();
         }
 
-        private static void CloseLast() => G.Popup.CloseAsync();
-    }
-
-    public abstract class PopupStateElementBehaviour : StateViewElement<string, AppModelRoot>
-    {
+        private void CloseLast()
+        {
+            if (_popupMessageModel.ModalWindowMessage.V.CanBeIgnored)
+                G.Popup.CloseAsync();
+        }
     }
 }
