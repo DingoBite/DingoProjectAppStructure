@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using DingoProjectAppStructure.Core;
 using DingoProjectAppStructure.Core.AppLock;
 using DingoProjectAppStructure.Core.Model;
+using DingoProjectAppStructure.Core.ViewModel;
 using DingoUnityExtensions.MonoBehaviours.Singletons;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public static IAppPopupController Popup => GetNoCheck()?._appPopupStateController;
         public static IAppInputLocker<AppInputLockMessage> Lock => GetNoCheck()?._appInputLocker;
         public static AppModelRoot M => GetNoCheck()?._appModel;
+        public static AppViewModelRoot VM => GetNoCheck()?._appModel?.Get<AppViewModelRootContainer>()?.Root;
         public static List<string> States => GetNoCheck()?._appStateController.States;
         public static List<string> PopupStates => GetNoCheck()?._appPopupStateController.States;
 
