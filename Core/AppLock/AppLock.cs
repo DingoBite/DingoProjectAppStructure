@@ -84,6 +84,25 @@ namespace DingoProjectAppStructure.Core.AppLock
             callback?.Invoke();
         }
         
+        public static async Task AppAsyncLockAction<T>(Task<T> task, Action<T> callback = null, ushort lockFlag = 0, AppInputLockMessage lockMessage = default)
+        {
+            if (lockMessage.ConfigureFlags == AppInputLockConfigure.None)
+                lockMessage = new AppInputLockMessage(AppInputLockConfigure.ShowPreloader);
+            G.Lock.Enable(lockMessage, lockFlag);
+            T result = default;
+            try
+            {
+                result = await task;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            G.Lock.Disable(lockFlag);
+            callback?.Invoke(result);
+        }
+        
         public static IEnumerator AppAsyncLockActionCoroutine(Func<Task> awaitFunc, Action callback = null, ushort lockFlag = 0, AppInputLockMessage lockMessage = default)
         {
             if (lockMessage.ConfigureFlags == AppInputLockConfigure.None)

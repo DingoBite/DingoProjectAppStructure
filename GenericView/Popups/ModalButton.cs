@@ -4,6 +4,7 @@ using DingoProjectAppStructure.Core.Model;
 using DingoUnityExtensions.Extensions;
 using DingoUnityExtensions.UnityViewProviders.Core;
 using DingoUnityExtensions.UnityViewProviders.Core.Data;
+using DingoUnityExtensions.UnityViewProviders.Navigation;
 using DingoUnityExtensions.UnityViewProviders.Toggle.Core;
 using UnityEngine;
 
@@ -15,9 +16,39 @@ namespace DingoProjectAppStructure.GenericView.Popups
         [SerializeField] private ValueContainer<string> _title;
         [SerializeField] private SerializedDictionary<ButtonMood, ToggleSwapInfoBase> _toggleFromMood;
         [SerializeField] private bool _swapImmediately;
+        [SerializeField] private ContainerNavigationNode _navigationNode;
         
         private ToggleSwapInfoBase _swap;
 
+        public GameObject NavigationGameObject => _navigationNode != null ? _navigationNode.gameObject : null;
+
+        public void MakeFirst()
+        {
+            if (_navigationNode == null)
+                return;
+            
+            _navigationNode.TagEdgeNavigationCase(EdgeNavigationCase.First);
+            _navigationNode.LoopFindEdgeNavigationCase(EdgeNavigationCase.First, true, true);
+        }
+
+        public void MakeLast()
+        {
+            if (_navigationNode == null)
+                return;
+            
+            _navigationNode.TagEdgeNavigationCase(EdgeNavigationCase.Last);
+            _navigationNode.LoopFindEdgeNavigationCase(EdgeNavigationCase.Last, true, true);
+        }
+
+        public void ResetNavigationPosition()
+        {
+            if (_navigationNode == null)
+                return;
+
+            _navigationNode.TagEdgeNavigationCase(EdgeNavigationCase.None);
+            _navigationNode.LoopFindEdgeNavigationCase(EdgeNavigationCase.None);
+        }
+        
         protected override void OnSetInteractable(bool value)
         {
             _button.Interactable = value;
@@ -32,6 +63,8 @@ namespace DingoProjectAppStructure.GenericView.Popups
                 _swap.SetViewActive(true.TimeContext(_swapImmediately));
             _title.UpdateValueWithoutNotify(value.key.Key);
         }
+
+        protected override void OnSelected(bool value) => _button.Selected = value;
 
         private void Invoke() => Value.action?.Invoke();
         protected override void SubscribeOnly()
