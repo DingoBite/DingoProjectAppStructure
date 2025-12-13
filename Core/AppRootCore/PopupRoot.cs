@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AppStructure;
-using AppStructure.EscapeManager;
 using DingoProjectAppStructure.Core.Model;
 using DingoProjectAppStructure.SceneRoot;
 using DingoUnityExtensions.Extensions;
 using DingoUnityExtensions.UnityViewProviders.Core;
+using DingoUnityExtensions.UnityViewProviders.Navigation;
 using UnityEngine;
 
 namespace DingoProjectAppStructure.Core.AppRootCore
