@@ -1,6 +1,5 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
-using Bind;
+using AppStructure;
 using DingoProjectAppStructure.Core.AppRootCore;
 using DingoProjectAppStructure.Core.Model;
 using DingoUnityExtensions.Pools.Core;
@@ -14,17 +13,18 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
         [SerializeField] private PoolBehaviour<ModalButton> _buttonsPool;
         [SerializeField] private ValueContainer<string> _title;
         [SerializeField] private ValueContainer<string> _message;
-        
-        private AppPopupMessageModel _popupMessageModel;
 
-        public override Task BindAsync(AppModelRoot appModel)
+        public override void OnStartStateEnable(TransferInfo<string> transferInfo)
         {
-            _popupMessageModel = appModel.Get<AppPopupMessageModel>();
-            return base.BindAsync(appModel);
+            base.OnStartStateEnable(transferInfo);
+            ModelWindowMessageChange(ModalWindowMessage);
         }
 
         private void ModelWindowMessageChange(ModalWindowMessage message)
         {
+            if (message == null)
+                return;
+            
             _title.SetActiveContainer(!string.IsNullOrWhiteSpace(message.Title));
             _title.UpdateValueWithoutNotify(message.Title);
             _message.SetActiveContainer(!string.IsNullOrWhiteSpace(message.Message));
@@ -38,16 +38,6 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
                 var button = _buttonsPool.PullElement();
                 button.UpdateValueWithoutNotify((action, key));
             }
-        }
-
-        protected override void SubscribeOnly()
-        {
-            _popupMessageModel.ModalWindowMessage.SafeSubscribeAndSet(ModelWindowMessageChange);
-        }
-
-        protected override void UnsubscribeOnly()
-        {
-            _popupMessageModel.ModalWindowMessage.UnSubscribe(ModelWindowMessageChange);
         }
     }
 }

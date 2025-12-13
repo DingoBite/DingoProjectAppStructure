@@ -9,7 +9,6 @@ namespace DingoProjectAppStructure.SceneRoot
     {
         public async UniTask RegisterModelsAsync(AppModelRoot appModelRoot)
         {
-            appModelRoot.Register(new AppPopupMessageModel());
             await AddictiveRegisterModelsAsync(appModelRoot);
             await RegisterViewModelAsync(appModelRoot);
         }

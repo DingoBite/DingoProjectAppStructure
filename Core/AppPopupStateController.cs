@@ -10,7 +10,7 @@ namespace DingoProjectAppStructure.Core
 {
     public interface IAppPopupController
     {
-        public Task OpenAsync(string popup);
+        public Task OpenAsync(string popup, object parameters);
         public Task CloseAsync();
     }
     
@@ -34,9 +34,10 @@ namespace DingoProjectAppStructure.Core
             }
         }
         
-        public async Task OpenAsync(string popup)
+        public async Task OpenAsync(string popup, object parameters)
         {
             var transferInfo = _appPopupStateMachine.OpenState(popup);
+            transferInfo.Parameters = parameters;
             await _appPopupViewRoot.ApplyTransferAsync(transferInfo);
         }
 

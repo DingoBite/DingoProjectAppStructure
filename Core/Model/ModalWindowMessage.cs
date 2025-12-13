@@ -14,7 +14,7 @@ namespace DingoProjectAppStructure.Core.Model
 
     public record ModalButtonKey(string Key, ButtonMood Mood, int order = 0);
     
-    public struct ModalWindowMessage
+    public class ModalWindowMessage
     {
         public readonly string Title;
         public readonly string Message;
@@ -28,10 +28,5 @@ namespace DingoProjectAppStructure.Core.Model
             CanBeIgnored = canBeIgnored;
             AddictiveActions = addictiveActions;
         }
-    }
-    
-    public class AppPopupMessageModel : AppModelBase
-    {
-        public readonly Bind<ModalWindowMessage> ModalWindowMessage = new();
     }
 }
