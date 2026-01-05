@@ -26,7 +26,8 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
 
         private void ModelWindowMessageChange(ModalWindowMessage message)
         {
-            _containerNavigationRoute.SetDirty();
+            if (_containerNavigationRoute != null)
+                _containerNavigationRoute.SetDirty();
             if (message == null)
                 return;
             
@@ -54,7 +55,9 @@ namespace DingoProjectAppStructure.GenericView.Popups.Elements
                 else
                     button.ResetNavigationPosition();
             }
-            _defaultFocusElement.RewriteFocusElement(_buttonsPool.PulledElements[0].NavigationGameObject);
+
+            if (_defaultFocusElement != null)
+                _defaultFocusElement.RewriteFocusElement(_buttonsPool.PulledElements[0].NavigationGameObject);
         }
     }
 }
