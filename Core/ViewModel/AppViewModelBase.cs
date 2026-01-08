@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AppStructure.Utils;
 using DingoProjectAppStructure.Core.Model;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace DingoProjectAppStructure.Core.ViewModel
     
     public class AppViewModelRoot : RootByGenericTypes<AppViewModelBase>
     {
+        public IReadOnlyDictionary<Type, AppViewModelBase> ViewModelBasesByTypes => ValuesByTypes;
     }
 
     public class AppViewModelRootContainer : AppModelBase

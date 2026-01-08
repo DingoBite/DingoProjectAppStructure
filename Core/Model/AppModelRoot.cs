@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AppStructure.Utils;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace DingoProjectAppStructure.Core.Model
     {
         public readonly ExternalDependencies ExternalDependencies;
 
+        public IReadOnlyDictionary<Type, AppModelBase> ModelsByTypes => ValuesByTypes;
+        
         public AppModelRoot(ExternalDependencies externalDependencies)
         {
             ExternalDependencies = externalDependencies;

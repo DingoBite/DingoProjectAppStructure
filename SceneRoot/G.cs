@@ -82,6 +82,18 @@ namespace DingoProjectAppStructure.SceneRoot
 
         private void OnDestroy()
         {
+            foreach (var (p, value) in M.ModelsByTypes)
+            {
+                if (value is IDisposable disposable)
+                    disposable.Dispose();
+            }
+            
+            foreach (var (p, value) in VM.ViewModelBasesByTypes)
+            {
+                if (value is IDisposable disposable)
+                    disposable.Dispose();
+            }
+
             _externalDependenciesRegisterer.Dispose();
         }
     }
