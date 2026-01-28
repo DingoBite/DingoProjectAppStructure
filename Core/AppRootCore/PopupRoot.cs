@@ -20,7 +20,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore
         
         public override void PreInitialize()
         {
-            _closeButtons.ForEach(e => e.SafeSubscribe(CloseLast));
+            _closeButtons.ForEach(e => e.OnEvent += CloseLast);
             SetDefaultValues();
         }
 

@@ -69,12 +69,12 @@ namespace DingoProjectAppStructure.GenericView.Popups
         private void Invoke() => Value.action?.Invoke();
         protected override void SubscribeOnly()
         {
-            _button.SafeSubscribe(Invoke);
+            _button.OnEvent += Invoke;
         }
 
         protected override void UnsubscribeOnly()
         {
-            _button.UnSubscribe(Invoke);
+            _button.OnEvent -= Invoke;
         }
     }
 }
