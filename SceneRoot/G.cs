@@ -47,7 +47,7 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(InitializeControllerAsync));
             await _appStateController.GoToBootstrap();
 
-            var externalDependencies = ExternalDependenciesRegistererBase.ConstructExternalDependencies();
+            var externalDependencies = new ExternalDependencies();
             await _externalDependenciesRegisterer.RegisterConfigsAsync(externalDependencies);
             await _externalDependenciesRegisterer.RegisterExternalDependenciesAsync(externalDependencies);
             _appModel = new AppModelRoot(externalDependencies);

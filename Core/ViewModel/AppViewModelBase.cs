@@ -18,10 +18,6 @@ namespace DingoProjectAppStructure.Core.ViewModel
         }
 
         protected ExternalDependencies ExternalDependencies => AppModelRoot.ExternalDependencies;
-
-        protected void Log(string message) => ExternalDependencies.LogDependencies.UnityLogWrap(() => Debug.Log(message));
-        protected void LogError(string message) => ExternalDependencies.LogDependencies.UnityLogWrap(() => Debug.LogError(message));
-        protected void LogException(Exception exception) => ExternalDependencies.LogDependencies.UnityLogWrap(() => Debug.LogException(exception));
     }
     
     public class AppViewModelRoot : RootByGenericTypes<AppViewModelBase>

@@ -12,10 +12,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
     {
         private async Task<AppModelRoot> ModelRootFactoryAsync()
         {
-            var dependencies = new ExternalDependencies(
-                UpdateAndCoroutineUtils.MakeRuntimeDependencies(),
-                new LogDependencies(LogDependenciesUtils.UnityLogInserted
-                ));
+            var dependencies = new ExternalDependencies();
             await ConstructExternalDependenciesRootAsync(dependencies);
             var appConfigRoot = new AppConfigRoot();
             dependencies.Register(appConfigRoot);
