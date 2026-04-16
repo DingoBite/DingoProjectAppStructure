@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AppStructure.InputLocker;
 using Cysharp.Threading.Tasks;
@@ -53,7 +53,7 @@ namespace DingoProjectAppStructure.SceneRoot
             _appModel = new AppModelRoot(externalDependencies);
             await _modelsRegistererManager.RegisterModelsAsync(_appModel);
             await _appModel.PostInitializeAsync();
-            _externalDependenciesRegisterer.BindToModelAsync(_appModel);
+            await _externalDependenciesRegisterer.BindToModelAsync(_appModel);
 
             var initializeResult = await _appStateController.AppViewRoot.InitializeAsync().AsUniTask();
             initializeResult |= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
