@@ -136,12 +136,12 @@ The default flow inside `G` is:
 
 ### Important Implementation Detail
 
-`ExternalDependenciesRegistererBase.BindToModelAsync()` is declared as an async hook, but the current `G` implementation calls it without `await`.
+`ExternalDependenciesRegistererBase.BindToModelAsync()` is declared as an async hook, and the current `G` implementation awaits it before the visual roots are initialized.
 
 In practice this means:
 
-- the hook is a good fit for immediate binding and lightweight subscriptions;
-- longer async work should usually live in `PostInitializeAsync()` or be handled explicitly by the project.
+- the hook is a good fit for async binding, initial data loads, and dependency-to-model wiring that must complete before `AppViewRoot.InitializeAsync()` and `AppPopupViewRoot.InitializeAsync()`;
+- work that can happen after the view layer is ready may still live in `PostInitializeAsync()` or be scheduled explicitly by the project.
 
 ## Core Concepts
 
@@ -482,3 +482,4 @@ Because dependencies, models, and lifecycle are separated cleanly, the solution 
 - the project is expected to grow and be maintained by multiple developers.
 
 For a tiny prototype with one scene and almost no runtime composition, the package may be more structure than necessary. For larger projects, the discipline it enforces usually pays off quickly.
+
