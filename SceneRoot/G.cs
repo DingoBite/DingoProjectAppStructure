@@ -45,7 +45,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public async UniTask InitializeControllerAsync(Action<bool> callback)
         {
             Debug.Log(nameof(InitializeControllerAsync));
-            await _appStateController.GoToBootstrap();
+            _appStateController.GoToBootstrap();
 
             var externalDependencies = new ExternalDependencies();
             await _externalDependenciesRegisterer.RegisterConfigsAsync(externalDependencies);
@@ -65,7 +65,7 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(BindAsync));
             var result = await _appStateController.AppViewRoot.BindAsync(_appModel).AsUniTask();
             result |= await _appPopupStateController.AppPopupViewRoot.BindAsync(_appModel).AsUniTask();
-            await _appStateController.GoToLoading();
+            _appStateController.GoToLoading();
             callback?.Invoke(result);
         }
 
@@ -77,7 +77,7 @@ namespace DingoProjectAppStructure.SceneRoot
             result |= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
             
             callback?.Invoke(result);
-            await _appStateController.GoToStart();
+            _appStateController.GoToStart();
         }
 
         private void OnDestroy()

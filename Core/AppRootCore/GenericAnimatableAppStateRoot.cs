@@ -42,14 +42,14 @@ namespace DingoProjectAppStructure.Core.AppRootCore
             base.StartDisable(transferInfo);
         }
 
-        public override Task DisableOnTransferAsync(TransferInfo<TState> transferInfo)
+        public override void DisableOnTransfer(TransferInfo<TState> transferInfo)
         {
             StartDisable(transferInfo);
             if (AnimatableBehaviours.Count == 0)
                 DisableCompletely(transferInfo);
             else
                 AnimatableBehaviours.ForEach(b => b.Disable(onComplete: () => DisableAllHandle(transferInfo)));
-            return base.DisableOnTransferAsync(transferInfo);
+            base.DisableOnTransfer(transferInfo);
         }
 
         protected override void DisableCompletely(TransferInfo<TState> transferInfo)
@@ -66,11 +66,11 @@ namespace DingoProjectAppStructure.Core.AppRootCore
             _fullEnable?.Invoke();
         }
         
-        public override Task EnableOnTransferAsync(TransferInfo<TState> transferInfo)
+        public override void EnableOnTransfer(TransferInfo<TState> transferInfo)
         {
             StartEnable(transferInfo);
             AnimatableBehaviours.ForEach(b => b.Enable(onComplete:EnableFirstHandle));
-            return base.EnableOnTransferAsync(transferInfo);
+            base.EnableOnTransfer(transferInfo);
         }
 
         private void DisableAllHandle(TransferInfo<TState> transferInfo)

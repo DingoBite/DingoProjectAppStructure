@@ -9,11 +9,11 @@ namespace DingoProjectAppStructure.StateRoots
     {
         [SerializeField] private bool _enableLog;
         
-        public override Task EnableOnTransferAsync(TransferInfo<string> transferInfo)
+        public override void EnableOnTransfer(TransferInfo<string> transferInfo)
         {
             if (_enableLog)
                 Debug.Log($"Enable {transferInfo}", this);
-            return base.EnableOnTransferAsync(transferInfo);
+            base.EnableOnTransfer(transferInfo);
         }
 
         protected override void DisableCompletely(TransferInfo<string> transferInfo)

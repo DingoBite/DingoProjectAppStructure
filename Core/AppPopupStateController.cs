@@ -10,8 +10,8 @@ namespace DingoProjectAppStructure.Core
 {
     public interface IAppPopupController
     {
-        public Task OpenAsync(string popup, object parameters);
-        public Task CloseAsync();
+        public void Open(string popup, object parameters);
+        public void Close();
     }
     
     public class AppPopupStateController : MonoBehaviour, IAppPopupController
@@ -34,17 +34,17 @@ namespace DingoProjectAppStructure.Core
             }
         }
         
-        public async Task OpenAsync(string popup, object parameters)
+        public void Open(string popup, object parameters)
         {
             var transferInfo = _appPopupStateMachine.OpenState(popup);
             transferInfo.Parameters = parameters;
-            await _appPopupViewRoot.ApplyTransferAsync(transferInfo);
+            _appPopupViewRoot.ApplyTransfer(transferInfo);
         }
 
-        public async Task CloseAsync()
+        public void Close()
         {
             var transferInfo = _appPopupStateMachine.CloseLastState();
-            await _appPopupViewRoot.ApplyTransferAsync(transferInfo);
+            _appPopupViewRoot.ApplyTransfer(transferInfo);
         }
     }
 }

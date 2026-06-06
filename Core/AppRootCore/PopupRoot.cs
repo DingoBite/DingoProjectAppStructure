@@ -24,11 +24,11 @@ namespace DingoProjectAppStructure.Core.AppRootCore
             SetDefaultValues();
         }
 
-        public override Task EnableOnTransferAsync(TransferInfo<string> transferInfo)
+        public override void EnableOnTransfer(TransferInfo<string> transferInfo)
         {
             _parameters = transferInfo.Parameters;
             EscapeRouter.AddAction(Close);
-            return base.EnableOnTransferAsync(transferInfo);
+            base.EnableOnTransfer(transferInfo);
         }
 
         protected override void StartDisable(TransferInfo<string> transferInfo)
@@ -41,7 +41,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore
         {
             if (ModalWindowMessage == null || ModalWindowMessage.CanBeIgnored)
             {
-                G.Popup.CloseAsync();
+                G.Popup.Close();
                 return EscapeResult.Closed;
             }
 
@@ -51,7 +51,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore
         private void CloseLast()
         {
             if (ModalWindowMessage == null || ModalWindowMessage.CanBeIgnored)
-                G.Popup.CloseAsync();
+                G.Popup.Close();
         }
     }
 }

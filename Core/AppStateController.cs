@@ -33,28 +33,28 @@ namespace DingoProjectAppStructure.Core
 
         public IAppStructurePart<AppModelRoot> AppViewRoot => _appStateElementsRoot;
         
-        public async Task GoToBootstrap()
+        public void GoToBootstrap()
         {
             var t = _appCoreStateMachine.GoToState(_bootstrapState);
-            await _appStateElementsRoot.ApplyTransferAsync(t);
+            _appStateElementsRoot.ApplyTransfer(t);
         }
 
-        public async Task GoToLoading()
+        public void GoToLoading()
         {
             var t = _appCoreStateMachine.GoToState(_loadingState);
-            await _appStateElementsRoot.ApplyTransferAsync(t);
+            _appStateElementsRoot.ApplyTransfer(t);
         }
 
-        public async Task GoToStart()
+        public void GoToStart()
         {
             var t = _appCoreStateMachine.GoToState(_startState);
-            await _appStateElementsRoot.ApplyTransferAsync(t);
+            _appStateElementsRoot.ApplyTransfer(t);
         }
 
-        public async Task GoToAsync(string appState)
+        public void GoTo(string appState)
         {
             var t = _appCoreStateMachine.GoToState(appState);
-            await _appStateElementsRoot.ApplyTransferAsync(t);
+            _appStateElementsRoot.ApplyTransfer(t);
         }
     }
 }

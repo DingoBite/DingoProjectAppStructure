@@ -18,7 +18,7 @@ namespace DingoProjectAppStructure.SceneRoot
 
         public override async Task InitializeAsync()
         {
-            await _appStateController.GoToBootstrap();
+            _appStateController.GoToBootstrap();
             await _appStateController.AppViewRoot.InitializeAsync();
             await base.InitializeAsync();
         }
@@ -26,7 +26,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public override async Task BindAsync(AppModelRoot appModel)
         {
             await _appStateController.AppViewRoot.BindAsync(appModel);
-            await _appStateController.GoToLoading();
+            _appStateController.GoToLoading();
             await base.BindAsync(appModel);
         }
 
@@ -34,7 +34,7 @@ namespace DingoProjectAppStructure.SceneRoot
         {
             await _appStateController.AppViewRoot.PostInitializeAsync();
             await base.PostInitializeAsync();
-            await _appStateController.GoToStart();
+            _appStateController.GoToStart();
         }
     }
 }

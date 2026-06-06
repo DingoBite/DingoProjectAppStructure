@@ -37,10 +37,7 @@ namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
             Initialized = true;
         }
 
-        private void OnEnable() => CoroutineParent.StartCoroutineWithCanceling((this, nameof(AppStateRootSceneBehaviour)), EnableCoroutine);
-        private void OnDisable() => CoroutineParent.StartCoroutineWithCanceling((this, nameof(AppStateRootSceneBehaviour)), DisableCoroutine);
-
-        private IEnumerator EnableCoroutine() => EnableElementAsync(TransferInfo<string>.None).AsUniTask().ToCoroutine();
-        private IEnumerator DisableCoroutine() => DisableElementAsync(TransferInfo<string>.None).AsUniTask().ToCoroutine();
+        private void OnEnable() => EnableElement(TransferInfo<string>.None);
+        private void OnDisable() => DisableElement(TransferInfo<string>.None);
     }
 }

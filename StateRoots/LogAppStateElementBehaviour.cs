@@ -10,18 +10,18 @@ namespace DingoProjectAppStructure.StateRoots
         [SerializeField] private bool _onEnableLogging = true;
         [SerializeField] private bool _onDisableLogging = true;
         
-        public override Task EnableElementAsync(TransferInfo<string> transferInfo)
+        public override void EnableElement(TransferInfo<string> transferInfo)
         {
             if (_onEnableLogging)
                 Debug.Log($"Enable {transferInfo}: {name}", this);
-            return base.EnableElementAsync(transferInfo);
+            base.EnableElement(transferInfo);
         }
 
-        public override Task DisableElementAsync(TransferInfo<string> transferInfo)
+        public override void DisableElement(TransferInfo<string> transferInfo)
         {
             if (_onDisableLogging)
                 Debug.Log($"Disable {transferInfo}: {name}", this);
-            return base.DisableElementAsync(transferInfo);
+            base.DisableElement(transferInfo);
         }
     }
 }
