@@ -2,10 +2,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using AppStructure;
 using Cysharp.Threading.Tasks;
-using DingoProjectAppStructure.Core.Config;
-using DingoProjectAppStructure.Core.GeneralUtils;
 using DingoProjectAppStructure.Core.Model;
-using DingoUnityExtensions;
 
 namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
 {
@@ -14,7 +11,6 @@ namespace DingoProjectAppStructure.Core.AppRootCore.UnityLifeTime
         private async Task<AppModelRoot> ModelRootFactoryAsync()
         {
             var dependencies = new ExternalDependencies();
-            dependencies.Register(new AppConfigRoot());
             var appModelRoot = new AppModelRoot(dependencies);
             await ConstructModelRootAsync(dependencies, appModelRoot);
             return appModelRoot;
