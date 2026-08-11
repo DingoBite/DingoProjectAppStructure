@@ -28,6 +28,7 @@ namespace DingoProjectAppStructure.SceneRoot
         public static List<string> PopupStates => GetNoCheck()?._appPopupStateController.States;
 
         private AppModelRoot _appModel;
+        private bool _teardownStarted;
 
         public void PrepareOnAwake()
         {
@@ -80,8 +81,22 @@ namespace DingoProjectAppStructure.SceneRoot
             _appStateController.GoToStart();
         }
 
+        private void OnApplicationQuit()
+        {
+            Teardown();
+        }
+
         private void OnDestroy()
         {
+            Teardown();
+        }
+
+        private void Teardown()
+        {
+            if (_teardownStarted)
+                return;
+
+            _teardownStarted = true;
             try
             {
                 var viewModelRoot = _appModel?

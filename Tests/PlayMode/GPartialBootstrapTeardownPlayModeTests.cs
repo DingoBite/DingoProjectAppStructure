@@ -34,6 +34,34 @@ namespace DingoProjectAppStructure.Tests.PlayMode
                 Object.DestroyImmediate(gameObject);
             }
         }
+
+        [Test]
+        public void ApplicationQuitThenDestroy_DisposesDependenciesExactlyOnce()
+        {
+            var gameObject = new GameObject(nameof(GPartialBootstrapTeardownPlayModeTests));
+            var registerer = gameObject.AddComponent<TrackingExternalDependenciesRegisterer>();
+            var root = gameObject.AddComponent<G>();
+
+            try
+            {
+                var serializedRoot = new SerializedObject(root);
+                serializedRoot
+                    .FindProperty("_externalDependenciesRegisterer")
+                    .objectReferenceValue = registerer;
+                serializedRoot.ApplyModifiedPropertiesWithoutUndo();
+
+                root.SendMessage(
+                    "OnApplicationQuit",
+                    SendMessageOptions.DontRequireReceiver);
+                Object.DestroyImmediate(root);
+
+                Assert.That(registerer.DisposeCount, Is.EqualTo(1));
+            }
+            finally
+            {
+                Object.DestroyImmediate(gameObject);
+            }
+        }
     }
 
     public class TrackingExternalDependenciesRegisterer : ExternalDependenciesRegistererBase
