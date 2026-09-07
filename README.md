@@ -168,6 +168,24 @@ public override Task PostInitialize(ExternalDependencies externalDependencies)
 
 That hook is invoked from `AppModelRoot.PostInitializeAsync()`.
 
+### Model Dependency Rules
+
+These rules apply to models and view models in the SDK, extensions, and consuming projects:
+
+- Do not pass an independently owned model into another model, whether through a constructor, initialization method, setter, or field. An interface exposing that model is also forbidden; hiding the concrete type does not remove the dependency.
+- Pass only the specific read-only state the consumer needs: `IReadonlyBind<T>` / `IReadonlyAsyncBind<T>` from `BindAssembly`, immutable snapshots, or equivalent narrow read-only data sources. Their values must be data, not model instances or model interfaces. A read-only wrapper around a whole model is not an exception.
+- The composition owner selects and connects these state sources. A model must not obtain peer models through a root, service locator, global facade, or factory as a workaround. Post-initialization does not relax this rule. Keep state propagation acyclic; read-only access alone cannot prevent feedback loops.
+- If a nested model is necessary, its parent creates it as a field and owns its initialization and cleanup. Do not inject an existing peer model and call it a child. The child must not receive the parent model or its interface, and must not also be independently registered or shared as a peer model.
+- Cross-model changes are coordinated by the composition owner or an explicit coordinator through the existing command/event flow. Infrastructure dependencies remain valid, but relabeling a model as a service does not exempt it from these rules.
+- Put logic that uses multiple models in extension methods on `AppModelRoot` or the relevant model. Keep one-time model construction, registration, and event wiring in the composition owner; do not wrap them in static model factory extensions. Extensions perform operations and do not become stored dependencies of models.
+- Cross-model operations return command results directly. Avoid model methods that only forward a synchronous command through `event Func<...>`; events publish notifications. Refreshing a read-only projection updates its own state. A reaction that changes another model belongs to an explicit subscription owner with cleanup.
+
+For example, composition passes `session.State` to a consumer whose constructor accepts `IReadonlyBind<SessionSnapshot>`. Passing `session`, `ISessionModel`, or `IReadonlyBind<SessionModel>` is forbidden. An owned nested model may instead be created inside its parent as `private readonly ChildModel _child = new();`.
+
+The purpose is to expose the actual data dependency and prevent cyclic ownership, initialization dependencies, and access to unrelated model operations.
+
+Explicit exception: `DingoLevelBasedInputSystem` may keep its existing input-model dependencies and controller/view-model binding contracts. This includes consuming an input provider through `InputDependViewModel<T>`. The exception does not permit direct dependencies between gameplay models inside an input consumer.
+
 ### View Models
 
 `AppViewModelBase` receives both:
@@ -175,7 +193,7 @@ That hook is invoked from `AppModelRoot.PostInitializeAsync()`.
 - `AppModelRoot`;
 - `AppViewModelRoot`.
 
-This gives a view model explicit access to domain models and sibling view models without hidden scene lookups.
+The current base API exposes these roots for integration. This does not exempt view models from the model dependency rules above: roots must not be used to resolve peer models as dependencies. Consumers receive the required read-only state through explicit composition.
 
 ### Global Facade
 
