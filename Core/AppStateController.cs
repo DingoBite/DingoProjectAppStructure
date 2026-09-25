@@ -32,6 +32,8 @@ namespace DingoProjectAppStructure.Core
         }
 
         public IAppStructurePart<AppModelRoot> AppViewRoot => _appStateElementsRoot;
+
+        public string CurrentState => _appCoreStateMachine.CurrentState;
         
         public void GoToBootstrap()
         {
