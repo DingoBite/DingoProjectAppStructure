@@ -20,8 +20,8 @@ namespace DingoProjectAppStructure.Core.AppRootCore
         
         public override void PreInitialize()
         {
+            base.PreInitialize();
             _closeButtons.ForEach(e => e.OnEvent += CloseLast);
-            SetDefaultValues();
         }
 
         public override void EnableOnTransfer(TransferInfo<string> transferInfo)
