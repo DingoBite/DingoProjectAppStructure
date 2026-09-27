@@ -57,7 +57,7 @@ namespace DingoProjectAppStructure.SceneRoot
             await _externalDependenciesRegisterer.BindToModelAsync(_appModel);
 
             var initializeResult = await _appStateController.AppViewRoot.InitializeAsync().AsUniTask();
-            initializeResult |= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
+            initializeResult &= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
             callback?.Invoke(initializeResult);
         }
 
@@ -65,8 +65,9 @@ namespace DingoProjectAppStructure.SceneRoot
         {
             Debug.Log(nameof(BindAsync));
             var result = await _appStateController.AppViewRoot.BindAsync(_appModel).AsUniTask();
-            result |= await _appPopupStateController.AppPopupViewRoot.BindAsync(_appModel).AsUniTask();
-            _appStateController.GoToLoading();
+            result &= await _appPopupStateController.AppPopupViewRoot.BindAsync(_appModel).AsUniTask();
+            if (result)
+                _appStateController.GoToLoading();
             callback?.Invoke(result);
         }
 
@@ -75,10 +76,11 @@ namespace DingoProjectAppStructure.SceneRoot
             Debug.Log(nameof(FinalizeAsync));
             await _externalDependenciesRegisterer.PostInitializeAsync();
             var result = await _appStateController.AppViewRoot.PostInitializeAsync().AsUniTask();
-            result |= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
+            result &= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
             
             callback?.Invoke(result);
-            _appStateController.GoToStart();
+            if (result)
+                _appStateController.GoToStart();
         }
 
         private void OnApplicationQuit()
