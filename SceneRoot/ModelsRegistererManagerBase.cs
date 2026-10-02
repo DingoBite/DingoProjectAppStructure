@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using DingoProjectAppStructure.Core;
 using DingoProjectAppStructure.Core.Model;
 using DingoProjectAppStructure.Core.ViewModel;
 using UnityEngine;
@@ -15,9 +16,9 @@ namespace DingoProjectAppStructure.SceneRoot
 
         public async UniTask RegisterViewModelAsync(AppModelRoot appModelRoot)
         {
-            var appViewModelRoot = new AppViewModelRoot();
-            appModelRoot.Register(new AppViewModelRootContainer(appViewModelRoot));
-            await AddictiveRegisterViewModelsAsync(appModelRoot, appViewModelRoot);
+            var container = OwnedRegistration.RegisterModel(appModelRoot,
+                () => new AppViewModelRootContainer(new AppViewModelRoot()));
+            await AddictiveRegisterViewModelsAsync(appModelRoot, container.Root);
         }
 
         protected virtual UniTask AddictiveRegisterModelsAsync(AppModelRoot appModelRoot) => UniTask.CompletedTask;

@@ -143,6 +143,23 @@ In practice this means:
 - the hook is a good fit for async binding, initial data loads, and dependency-to-model wiring that must complete before `AppViewRoot.InitializeAsync()` and `AppPopupViewRoot.InitializeAsync()`;
 - work that can happen after the view layer is ready may still live in `PostInitializeAsync()` or be scheduled explicitly by the project.
 
+### Teardown and failed startup
+
+The typed roots own the disposable objects already registered in them.
+`AppModelRoot.Dispose()` stops the view-model root first and then models in
+reverse registry enumeration order. `AppViewModelRoot.Dispose()` uses the same
+reverse order for view models. Each root snapshots its registry before cleanup,
+attempts every disposable owner, and is idempotent even when cleanup fails.
+A single cleanup failure keeps its exception; multiple failures are aggregated.
+
+`G` delegates model and view-model teardown to `AppModelRoot`, then always
+disposes the external dependency registerer. Exceptions escaping preparation,
+initialization, binding or finalization trigger this cleanup and preserve both the original error
+and a cleanup error. Checks after asynchronous bootstrap stages prevent a retired
+root from completing later startup stages. Domain owners and dependency
+registerers remain responsible for unsubscribing, cancelling pending work,
+rejecting late resource results and completing their own in-flight jobs.
+
 ## Core Concepts
 
 ### Typed Roots
@@ -167,6 +184,38 @@ public override Task PostInitialize(ExternalDependencies externalDependencies)
 ```
 
 That hook is invoked from `AppModelRoot.PostInitializeAsync()`.
+
+### Owned construction and registration
+
+Use `DingoProjectAppStructure.Core.OwnedRegistration` when construction or an
+initial bind installs resources before registration:
+
+```csharp
+var session = OwnedRegistration.RegisterModel(
+    appModelRoot,
+    () => new SessionModel(),
+    model => model.BindSession(sessionSource));
+
+var sessionView = OwnedRegistration.RegisterViewModel(
+    appViewModelRoot,
+    () => new SessionViewModel(appViewModelRoot, appModelRoot));
+```
+
+The helper rejects an occupied exact type, including a null registry value,
+before constructing another owner. It runs the supplied bind, registers through
+the existing root and verifies the retained reference. A failed bind or
+registration disposes only the newly created owner, preserving initialization
+and cleanup errors if both fail. A disposed root rejects owned registration.
+The low-level `RootByGenericTypes.Register` and `Get` contracts are unchanged.
+
+Factories must keep their own constructors safe when construction throws before
+returning an owner. Project-specific dependencies and binding order belong in
+the project's composition; these helpers introduce no additional model graph,
+registry or service locator. The base model registerer uses the same helper for
+the `AppViewModelRootContainer`, rejecting duplicate registration before it
+constructs a second view-model root. `AppRootDisposal.Attempt` is also available
+to dependency owners that must attempt non-disposable cleanup operations while
+collecting failures alongside their disposable resources.
 
 ### View Models
 
