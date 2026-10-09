@@ -84,7 +84,7 @@ namespace DingoProjectAppStructure.SceneRoot
 
                 var initializeResult = await _appStateController.AppViewRoot.InitializeAsync().AsUniTask();
                 ThrowIfTeardownStarted();
-                initializeResult |= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
+                initializeResult &= await _appPopupStateController.AppPopupViewRoot.InitializeAsync().AsUniTask();
                 ThrowIfTeardownStarted();
                 callback?.Invoke(initializeResult);
             }
@@ -103,9 +103,10 @@ namespace DingoProjectAppStructure.SceneRoot
             {
                 var result = await _appStateController.AppViewRoot.BindAsync(_appModel).AsUniTask();
                 ThrowIfTeardownStarted();
-                result |= await _appPopupStateController.AppPopupViewRoot.BindAsync(_appModel).AsUniTask();
+                result &= await _appPopupStateController.AppPopupViewRoot.BindAsync(_appModel).AsUniTask();
                 ThrowIfTeardownStarted();
-                _appStateController.GoToLoading();
+                if (result)
+                    _appStateController.GoToLoading();
                 callback?.Invoke(result);
             }
             catch (Exception initializationFailure)
@@ -125,12 +126,13 @@ namespace DingoProjectAppStructure.SceneRoot
                 ThrowIfTeardownStarted();
                 var result = await _appStateController.AppViewRoot.PostInitializeAsync().AsUniTask();
                 ThrowIfTeardownStarted();
-                result |= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
+                result &= await _appPopupStateController.AppPopupViewRoot.PostInitializeAsync().AsUniTask();
                 ThrowIfTeardownStarted();
 
                 callback?.Invoke(result);
                 ThrowIfTeardownStarted();
-                _appStateController.GoToStart();
+                if (result)
+                    _appStateController.GoToStart();
             }
             catch (Exception initializationFailure)
             {
