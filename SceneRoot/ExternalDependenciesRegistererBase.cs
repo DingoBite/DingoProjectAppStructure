@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using DingoProjectAppStructure.Core.Model;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace DingoProjectAppStructure.SceneRoot
 {
     public class ExternalDependenciesRegistererBase : MonoBehaviour, IDisposable
     {
+        public CancellationToken LifetimeCancellation { get; private set; }
+
         public async UniTask RegisterConfigsAsync(ExternalDependencies externalDependencies)
         {
             await UniTask.CompletedTask;
@@ -24,6 +27,10 @@ namespace DingoProjectAppStructure.SceneRoot
         protected virtual void AwakePreInitialize() {}
         
         public virtual void Dispose() { }
-        public void AwakePrepare() => AwakePreInitialize();
+        public void AwakePrepare(CancellationToken lifetimeCancellation = default)
+        {
+            LifetimeCancellation = lifetimeCancellation;
+            AwakePreInitialize();
+        }
     }
 }

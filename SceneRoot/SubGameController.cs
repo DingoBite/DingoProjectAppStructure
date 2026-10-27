@@ -11,5 +11,6 @@ namespace DingoProjectAppStructure.SceneRoot
         
         public static IStateController State => Instance._appStateController;
         public static List<string> States => Instance._appStateController.States;
+        public IStateController StateController => _appStateController;
     }
 }

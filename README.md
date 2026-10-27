@@ -143,7 +143,7 @@ In practice this means:
 - the hook is a good fit for async binding, initial data loads, and dependency-to-model wiring that must complete before `AppViewRoot.InitializeAsync()` and `AppPopupViewRoot.InitializeAsync()`;
 - work that can happen after the view layer is ready may still live in `PostInitializeAsync()` or be scheduled explicitly by the project.
 
-### Teardown and failed startup
+### Awaited teardown and owned roots
 
 The typed roots own the disposable objects already registered in them.
 `AppModelRoot.Dispose()` stops the view-model root first and then models in
@@ -152,13 +152,43 @@ reverse order for view models. Each root snapshots its registry before cleanup,
 attempts every disposable owner, and is idempotent even when cleanup fails.
 A single cleanup failure keeps its exception; multiple failures are aggregated.
 
-`G` delegates model and view-model teardown to `AppModelRoot`, then always
-disposes the external dependency registerer. Exceptions escaping preparation,
-initialization, binding or finalization trigger this cleanup and preserve both the original error
-and a cleanup error. Checks after asynchronous bootstrap stages prevent a retired
-root from completing later startup stages. Domain owners and dependency
-registerers remain responsible for unsubscribing, cancelling pending work,
-rejecting late resource results and completing their own in-flight jobs.
+`await G.TeardownAsync()` cancels pending view work, drains in-flight startup,
+binding and finalization, and deinitializes the captured view roots. Before
+disposing any model, view model or external dependency, it awaits the manager's
+`PrepareForDisposalAsync(root)` and the mandatory
+`AppModelRoot.PrepareForDisposalAsync()` barrier. Every `AppModelBase` may
+override `PrepareForDisposalAsync()` to release native resources asynchronously.
+A failed or canceled barrier retains dependencies; an explicit later call
+retries it, while concurrent calls share the pending task. After successful
+preparation, `G` delegates disposal to the owned model root and then disposes
+the external dependency registerer. Completed cleanup diagnostics remain in
+`G.DisposalError`; bootstrap failures remain in `G.StartupError`.
+
+`AppModelRoot.Dispose()` also checks its preparation barrier. For roots whose
+preparation completes synchronously it remains a synchronous operation. If
+preparation is pending, it throws without releasing any registered owner; await
+`PrepareForDisposalAsync()` before retrying disposal. It never blocks Unity's
+main thread waiting for asynchronous cleanup. A failed preparation can be retried
+and does not mark the root disposed.
+
+A replacement `G` in the same Play session waits for its predecessor to finish
+teardown before preparing new dependencies. Stale startup callbacks cannot enter
+loading or start states. A new Play session starts a new owner chain even with
+Domain Reload disabled; `AppModelRoot.LifetimeCancellation` and
+`ExternalDependenciesRegistererBase.LifetimeCancellation` identify the ended
+Play lifetime. Owners suppress stale publication while still releasing their
+exact captured resources. Ordinary same-Play teardown does not cancel this token.
+
+`OnApplicationQuit` and `OnDestroy` observe best-effort asynchronous teardown;
+await `TeardownAsync()` explicitly when shutdown must finish before exit. Domain
+owners remain responsible for unsubscribing, canceling work, rejecting late
+results and completing their own in-flight jobs.
+
+Run the runtime lifecycle regression fixture from **Dingo SDK > Technical Tests >
+Run Application Lifetime** in the Unity Editor. This entry uses the installed
+Unity Test Runner; the fixture enters and exits Play Mode itself. Resolve the
+standard save-scene prompt before starting. Results are written to
+`Temp/DingoProjectAppStructure/ApplicationLifetime.xml` in the consuming project.
 
 ## Core Concepts
 
